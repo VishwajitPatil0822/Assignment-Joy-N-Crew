@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="argument-page container">
+  <div class="progress">
+    <span class="done">START</span><i></i>
+    <span class="{% if round_number == 2 %}active{% else %}done{% endif %}">WILD</span><i></i>
+    <span class="{% if round_number == 2 %}active{% else %}done{% endif %}">CHOICE</span><i></i>
+    <span>REVEAL</span>
+  </div>
+
+  <header class="round-heading">
+    <p class="eyebrow">ROUND {{ round_number }} / THE ARGUMENT</p>
+    {% if round_number == 2 %}
+      <h1>NOW, CHOOSE<br>YOUR EVENING.</h1>
+      <p>THE DESTINATION CAN WAIT. THE FEELING CANNOT.</p>
+    {% else %}
+      <h1>ONE LAST<br>CHOICE.</h1>
+      <p>HOW WOULD YOU RATHER TRAVEL?</p>
+    {% endif %}
+  </header>
+
+  <div class="choice-grid">
+    {% for choice in choices %}
+    <button class="choice-card choice-dark" type="button"
+      data-choice-id="{{ choice.id }}"
+      data-weight='{{ choice.weight|default:"{}"|safe }}'>
+      <div class="choice-image choice-{{ choice.id }}"></div>
+      <div class="choice-copy">
+        <p class="choice-kicker">{{ choice.label }}</p>
+        <h2>{{ choice.title }}</h2>
+        <p>{{ choice.body }}</p>
+        <span class="choice-arrow" aria-hidden="true">↗</span>
+      </div>
+    </button>
+    {% endfor %}
+  </div>
+
+  <div class="journey-trail">
+    <span class="done">START</span><i></i>
+    <span class="done">WILD</span><i></i>
+    <span class="active">CHOICE</span><i></i>
+    <span>REVEAL</span>
+  </div>
+</section>
+{% endblock %}

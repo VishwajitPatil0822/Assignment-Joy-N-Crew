@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="reveal-page container">
+  <div class="reveal-orbit"><span>01</span><span>02</span><span>03</span></div>
+  <p class="eyebrow">THE ARGUMENT IS OVER.</p>
+  <h1>YOU DIDN’T CHOOSE<br>A DESTINATION.</h1>
+  <p class="reveal-subhead">YOU CHOSE A WAY TO TRAVEL.</p>
+
+  <div class="identity reveal-card">
+    <div class="identity-avatar"></div>
+    <div>
+      <p class="eyebrow">YOUR TRAVEL IDENTITY</p>
+      <h2>{{ identity.name }}</h2>
+      <p>{{ identity.copy }}</p>
+    </div>
+  </div>
+
+  <div class="dna">
+    <div class="dna-heading">
+      <div>
+        <p class="eyebrow">YOUR TRAVEL DNA</p>
+        <p class="dna-caption">Affinity inferred from your {{ choice_count }} choices.</p>
+      </div>
+      <span class="dna-live"><i></i> INFERRED PROFILE</span>
+    </div>
+
+    {% for row in dna_rows %}
+    <div class="dna-row">
+      <span>{{ row.label }}</span>
+      <b style="--score:{{ row.score }}%"></b>
+      <strong>{{ row.display_score }} / 10</strong>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="reveal-divider"><span></span> YOUR JOURNEYS <span></span></div>
+  <p class="reveal-copy">These aren't recommendations.<br><strong>They're the journeys your choices led us to.</strong></p>
+
+  <div class="journey-list">
+    <a class="mini-journey" href="{% url 'journeys:detail' 'japan' %}">
+      <span>01</span><div><strong>JAPAN</strong><small>Autumn Japan, Your Way · 9 Days / 8 Nights</small></div><b>→</b>
+    </a>
+    <a class="mini-journey" href="{% url 'journeys:detail' 'new-zealand' %}">
+      <span>02</span><div><strong>NEW ZEALAND</strong><small>The Long Way South · 11 Days</small></div><b>→</b>
+    </a>
+    <a class="mini-journey" href="{% url 'journeys:detail' 'kenya' %}">
+      <span>03</span><div><strong>KENYA</strong><small>A Serenade of Savanna · 8 Days</small></div><b>→</b>
+    </a>
+  </div>
+</section>
+{% endblock %}

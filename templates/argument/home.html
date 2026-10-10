@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero hero-landing">
+  <div class="hero-glow"></div><div class="hero-image" aria-hidden="true"></div>
+  <div class="container hero-content">
+    <p class="eyebrow">TRAVEL, BEFORE THE DESTINATION.</p>
+    <h1>LET’S HAVE<br>AN ARGUMENT.</h1>
+    <p class="hero-copy">You don't always know where you want to go.<br class="desktop-only"> Sometimes you just know what feels right.</p>
+    <div class="hero-note"><span></span> THREE QUESTIONS. ONE JOURNEY.</div>
+    <a class="button button-gold" href="#argument">LET’S BEGIN <span>→</span></a>
+  </div>
+  <div class="container hero-meta">
+    <span>REAL EXPERIENCES</span>
+    <span>SMALL GROUPS</span>
+    <span>CURATED JOURNEYS</span>
+    <span>MEANINGFUL TRAVEL</span>
+  </div>
+</section>
+
+<section class="argument-section container" id="argument">
+  <div class="section-heading">
+    <p class="eyebrow">ROUND 01 / THE ARGUMENT</p>
+    <h2>How would you rather<br>start your day?</h2>
+  </div>
+
+  <div class="choice-grid">
+    {% for choice in choices %}
+    <button
+      class="choice-card"
+      type="button"
+      data-choice-id="{{ choice.id }}"
+      data-weight='{{ choice.weight|default:"{}"|safe }}'
+    >
+      <div class="choice-image choice-{{ choice.id }}"></div>
+      <div class="choice-copy">
+        <p class="choice-kicker">{{ choice.label }}</p>
+        <h3>{{ choice.title }}</h3>
+        <p>{{ choice.body }}</p>
+        <span class="choice-arrow" aria-hidden="true">↗</span>
+      </div>
+    </button>
+    {% endfor %}
+  </div>
+
+  <div class="journey-trail">
+    <span class="active">START</span><i></i><span>WILD</span><i></i><span>CHOICE</span><i></i><span>REVEAL</span>
+  </div>
+</section>
+
+<section class="statement-section" id="idea">
+  <p class="eyebrow">THE IDEA</p>
+  <h2>DON’T ASK ME<br><em>WHERE</em> I WANT TO GO.<br>ASK ME WHAT I WANT<br>TO FEEL.</h2>
+</section>
+{% endblock %}

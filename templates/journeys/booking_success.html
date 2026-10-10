@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Journey Request Received — Joy-N-Crew{% endblock %}
+{% block content %}
+<section class="booking-success">
+  <div class="success-orbit" aria-hidden="true"></div>
+  <div class="container success-inner">
+    <p class="eyebrow">REQUEST RECEIVED</p>
+    <div class="success-mark">✓</div>
+    <h1>Your journey<br><em>has begun.</em></h1>
+    <p class="success-lead">We've received your {{ journey.country }} journey request. A travel curator will review the details and shape the next step with you.</p>
+    <div class="reference-card">
+      <span>JOURNEY REQUEST</span>
+      <strong>{{ booking.reference }}</strong>
+      <small>{{ journey.name }} · {{ journey.duration }}</small>
+    </div>
+    <div class="success-actions">
+      <a class="button button-gold" href="{% url 'journeys:detail' journey.country|slugify %}">RETURN TO JOURNEY</a>
+      <a class="button button-outline" href="{% url 'argument:home' %}">EXPLORE AGAIN</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

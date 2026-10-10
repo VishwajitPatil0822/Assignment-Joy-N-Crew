@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}Begin Your Journey — {{ journey.country }}{% endblock %}
+{% block content %}
+<section class="booking-hero">
+  <div class="container">
+    <a class="back-link" href="{% url 'journeys:detail' journey.country|slugify %}">← Back to {{ journey.country }}</a>
+    <p class="eyebrow">PRIVATE JOURNEY REQUEST</p>
+    <h1>Let's make<br><em>{{ journey.name }}</em><br>yours.</h1>
+    <p>Tell us how you travel. A Joy-N-Crew travel curator will review your request and shape the details with you.</p>
+  </div>
+</section>
+
+<section class="booking-layout container">
+  <aside class="booking-summary">
+    <p class="eyebrow">YOUR JOURNEY</p>
+    <h2>{{ journey.country }}</h2>
+    <strong>{{ journey.name }}</strong>
+    <span>{{ journey.duration }}</span>
+    <span>{{ journey.departure }}</span>
+    <div class="summary-line"></div>
+    <small>STARTING FROM</small>
+    <b>₹{{ journey.starting_price|floatformat:0 }}</b>
+    <p>Final pricing is confirmed after your travel preferences, dates and room requirements are reviewed.</p>
+  </aside>
+
+  <form class="booking-form" method="post">
+    {% csrf_token %}
+    <div class="form-intro">
+      <span>01 — YOUR DETAILS</span>
+      <p>Your information is used only to prepare your journey request.</p>
+    </div>
+
+    <div class="form-grid">
+      <label class="field field-wide">
+        <span>FULL NAME *</span>
+        <input required name="full_name" autocomplete="name" placeholder="Your full name">
+      </label>
+      <label class="field">
+        <span>EMAIL *</span>
+        <input required type="email" name="email" autocomplete="email" placeholder="you@example.com">
+      </label>
+      <label class="field">
+        <span>PHONE / WHATSAPP *</span>
+        <input required type="tel" name="phone" autocomplete="tel" placeholder="+91">
+      </label>
+      <label class="field">
+        <span>COUNTRY OF RESIDENCE *</span>
+        <input required name="country_of_residence" autocomplete="country-name" placeholder="India">
+      </label>
+      <label class="field">
+        <span>DEPARTURE CITY</span>
+        <input name="departure_city" placeholder="Mumbai">
+      </label>
+    </div>
+
+    <div class="form-intro form-break">
+      <span>02 — YOUR TRAVELLERS</span>
+      <p>Help us understand the shape of your group.</p>
+    </div>
+    <div class="form-grid">
+      <label class="field">
+        <span>TOTAL TRAVELLERS *</span>
+        <input required type="number" min="1" max="30" name="travelers" value="1">
+      </label>
+      <label class="field">
+        <span>ADULTS *</span>
+        <input required type="number" min="1" max="30" name="adults" value="1">
+      </label>
+      <label class="field">
+        <span>CHILDREN</span>
+        <input type="number" min="0" max="20" name="children" value="0">
+      </label>
+      <label class="field">
+        <span>ROOM PREFERENCE</span>
+        <select name="room_preference">
+          <option value="">Choose</option>
+          <option>Single rooms</option>
+          <option>Twin / double rooms</option>
+          <option>Family room</option>
+          <option>Suite / premium room</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="form-intro form-break">
+      <span>03 — WHEN & HOW</span>
+      <p>Dates are a preference at this stage. Your curator will confirm availability.</p>
+    </div>
+    <div class="form-grid">
+      <label class="field">
+        <span>PREFERRED DEPARTURE</span>
+        <input name="preferred_departure" placeholder="15 November 2026">
+      </label>
+      <label class="field">
+        <span>PASSPORT STATUS</span>
+        <select name="passport_status">
+          <option value="">Choose</option>
+          <option>Valid passport</option>
+          <option>Passport renewal in progress</option>
+          <option>Need visa guidance</option>
+          <option>Need passport / visa guidance</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>SPECIAL OCCASION</span>
+        <input name="special_occasion" placeholder="Honeymoon, birthday, anniversary...">
+      </label>
+      <label class="field">
+        <span>TRAVEL BUDGET NOTE</span>
+        <input name="budget_note" placeholder="Optional — helps us curate better">
+      </label>
+    </div>
+
+    <div class="form-intro form-break">
+      <span>04 — MAKE IT YOURS</span>
+      <p>Anything that would make this journey feel considered for you.</p>
+    </div>
+    <div class="form-grid">
+      <label class="field field-wide">
+        <span>DIETARY REQUIREMENTS</span>
+        <input name="dietary_requirements" placeholder="Vegetarian, allergies, halal, etc.">
+      </label>
+      <label class="field field-wide">
+        <span>ACCESSIBILITY REQUIREMENTS</span>
+        <input name="accessibility_requirements" placeholder="Mobility, medical assistance, room requirements...">
+      </label>
+      <label class="field field-wide">
+        <span>EMERGENCY CONTACT</span>
+        <input name="emergency_contact_name" placeholder="Full name">
+      </label>
+      <label class="field">
+        <span>EMERGENCY PHONE</span>
+        <input type="tel" name="emergency_contact_phone" placeholder="+91">
+      </label>
+      <label class="field field-wide">
+        <span>PRIVATE NOTE TO YOUR CURATOR</span>
+        <textarea name="special_requests" rows="5" placeholder="Tell us what you want this journey to feel like..."></textarea>
+      </label>
+    </div>
+
+    <div class="booking-submit">
+      <div>
+        <span>YOUR REQUEST IS THE BEGINNING.</span>
+        <p>This is a journey request, not an instant payment or final confirmation.</p>
+      </div>
+      <button class="button button-gold" type="submit">SEND MY JOURNEY REQUEST →</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

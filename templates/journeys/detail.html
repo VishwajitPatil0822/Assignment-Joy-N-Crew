@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}{{ journey.country }} — {{ journey.name }}{% endblock %}
+{% block content %}
+
+<section class="journey-detail-hero">
+  <div class="journey-detail-image" style="background-image:
+    linear-gradient(180deg, rgba(8,23,22,.10), rgba(8,23,22,.20) 35%, #081716 96%),
+    url('{{ journey.hero_image_url }}');"></div>
+
+  <div class="container journey-detail-content">
+    <a class="back-link" href="{% url 'argument:reveal' %}">← Back to your journeys</a>
+
+    <div class="journey-detail-kicker">
+      <span class="match-pill">MATCHED TO YOUR TRAVEL DNA</span>
+      <span>{{ journey.duration }}</span>
+    </div>
+
+    <p class="eyebrow">{{ journey.country }}</p>
+    <h1>{{ journey.name }}</h1>
+    <p class="journey-subtitle">{{ journey.subtitle }}</p>
+    <p class="route">{{ journey.route }}</p>
+
+    <div class="journey-facts">
+      <span>{{ journey.departure }}</span>
+      <span>FROM ₹{{ journey.starting_price|floatformat:0 }}</span>
+    </div>
+
+    <div class="journey-hero-actions">
+      <a class="button button-gold" href="#itinerary">EXPLORE THE JOURNEY ↓</a>
+      <a class="button button-outline" href="#start">START THIS JOURNEY →</a>
+    </div>
+  </div>
+</section>
+
+<section class="journey-intro container">
+  <div class="journey-intro-statement">
+    <p class="eyebrow">WHY THIS JOURNEY</p>
+    <h2>{{ journey.why_match }}</h2>
+  </div>
+  <div class="journey-intro-copy">
+    <p>{{ journey.description }}</p>
+    <div class="journey-proof">
+      <span>01</span><span>CURATED</span><i></i>
+      <span>02</span><span>SMALL MOMENTS</span><i></i>
+      <span>03</span><span>YOUR PACE</span>
+    </div>
+  </div>
+</section>
+
+<section class="journey-highlights">
+  <div class="container">
+    <div class="section-heading journey-section-heading">
+      <p class="eyebrow">THE HIGHLIGHTS</p>
+      <h2>What makes this<br><em>journey worth taking.</em></h2>
+    </div>
+
+    <div class="highlight-grid">
+      {% for item in highlights %}
+      <article class="highlight-card">
+        <span>0{{ forloop.counter }}</span>
+        <h3>{{ item }}</h3>
+        <p>One of the moments that gives this journey its character.</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="journey-experiences container">
+  <div class="section-rule"></div>
+  <p class="eyebrow">SIGNATURE EXPERIENCES</p>
+  <div class="experience-detail-grid">
+    {% for experience in experiences %}
+    <article>
+      <span>0{{ forloop.counter }}</span>
+      <div>
+        <h3>{{ experience.title }}</h3>
+        <p>{{ experience.description }}</p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="journey-itinerary container" id="itinerary">
+  <div class="itinerary-intro">
+    <p class="eyebrow">DAY BY DAY</p>
+    <h2>A journey<br><em>that unfolds slowly.</em></h2>
+    <p>Every day has a shape. The spaces between them are yours.</p>
+  </div>
+
+  <div class="journey-timeline">
+    {% for day in days %}
+    <article class="timeline-day">
+      <div class="timeline-marker">
+        <span>{{ day.day_number|stringformat:"02d" }}</span>
+      </div>
+      <div class="timeline-content">
+        <p class="eyebrow">DAY {{ day.day_number }}</p>
+        <h3>{{ day.title }}</h3>
+        <p>{{ day.description }}</p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="journey-stay-section">
+  <div class="container journey-two-column">
+    <div>
+      <p class="eyebrow">WHERE YOU STAY</p>
+      <h2>Places that let<br><em>the journey breathe.</em></h2>
+    </div>
+    <div class="stay-list">
+      {% for hotel in hotels %}
+      <article class="stay-card">
+        <div>
+          <strong>{{ hotel.city }}</strong>
+          <span>{{ hotel.nights }}</span>
+        </div>
+        <p>{{ hotel.type }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="journey-included container">
+  <div>
+    <p class="eyebrow">WHAT'S INCLUDED</p>
+    <h2>Everything important.<br><em>Nothing hidden.</em></h2>
+  </div>
+  <ul>
+    {% for item in inclusions %}
+    <li><span>+</span>{{ item }}</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="journey-start container" id="start">
+  <div>
+    <p class="eyebrow">YOUR NEXT CHAPTER</p>
+    <h2>Ready to see<br><em>where your choices lead?</em></h2>
+    <p>{{ journey.departure }} · {{ journey.duration }}</p>
+  </div>
+  <div class="journey-price">
+    <span>STARTING FROM</span>
+    <strong>₹{{ journey.starting_price|floatformat:0 }}</strong>
+    <small>per person</small>
+    <a class="button button-gold" href="{% url 'journeys:book' journey.country|slugify %}">START THIS JOURNEY →</a>
+  </div>
+</section>
+
+{% endblock %}
